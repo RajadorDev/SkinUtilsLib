@@ -5,7 +5,7 @@ This shared library for `PocketMine 2.0.0` saves player's skin **automatically**
 ## Dependences 🧱
 
 - `SmartCommand PocketMine 2`: 
-  - Here is the latest SmartCommand PM2 version: https://github.com/RajadorDev/SmartCommand 
+  - Here is the latest SmartCommand PM2 version: https://github.com/RajadorDev/SmartCommand/releases/tag/2.3.2
 
 - `AutoPluginUpdater`: 
   - Repo: https://github.com/RajadorDev/AutoPluginUpdater

@@ -10,6 +10,7 @@ depend:
 version: '1.0.0'
 main: rajadordev\skinutils\SkinUtilsLoader
 permissions:
+  # Soon....
   skinutils.command.save:
     description: 'Permitir jogador de salvar uma skin.'
     default: op
