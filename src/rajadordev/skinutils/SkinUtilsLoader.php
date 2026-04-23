@@ -26,6 +26,9 @@ declare (strict_types=1);
 namespace rajadordev\skinutils;
 
 use pocketmine\plugin\PluginBase;
+use rajadordev\autoupdater\api\CheckUpdateScheduler;
+use rajadordev\autoupdater\api\plugin\defaults\github\GitHubPluginUpdaterAPI;
+use rajadordev\autoupdater\api\PluginUpdaterChecker;
 use rajadordev\skinutils\command\SaveSkinCommand;
 use rajadordev\skinutils\command\SetSkinCommand;
 use rajadordev\skinutils\skin\save\OfflinePlayersSkinsSave;
@@ -59,6 +62,17 @@ class SkinUtilsLoader extends PluginBase
         }
         
         OnlinePlayersSkinsSave::init($this);
+
+        CheckUpdateScheduler::getInstance()->schedule(
+            new PluginUpdaterChecker(
+                $this,
+                GitHubPluginUpdaterAPI::createFromPlugin(
+                    $this,
+                    'RajadorDev',
+                    'SkinUtilsLib'
+                )
+            )
+        );
 
     }
 
