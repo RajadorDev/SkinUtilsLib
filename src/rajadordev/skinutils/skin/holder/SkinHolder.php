@@ -1,0 +1,49 @@
+<?php
+
+declare (strict_types=1);
+ 
+/***
+ *   
+ * Rajador Developer Diamond API
+ * 
+ *  ██████╗  █████╗      ██╗ █████╗ ██████╗  ██████╗ ██████╗ 
+ *  ██╔══██╗██╔══██╗     ██║██╔══██╗██╔══██╗██╔═══██╗██╔══██╗
+ *  ██████╔╝███████║     ██║███████║██║  ██║██║   ██║██████╔╝
+ *  ██╔══██╗██╔══██║██   ██║██╔══██║██║  ██║██║   ██║██╔══██╗
+ *  ██║  ██║██║  ██║╚█████╔╝██║  ██║██████╔╝╚██████╔╝██║  ██║
+    ╚═╝  ╚═╝╚═╝  ╚═╝ ╚════╝ ╚═╝  ╚═╝╚═════╝  ╚═════╝ ╚═╝  ╚═╝
+ * 
+ * GitHub: https://github.com/rajadordev
+ * 
+ * Discord: rajadortv
+ * 
+ * @copyright 2023 - 2027 Rajador Developer
+ * 
+ * Repository: https://github.com/RajadorDev/SkinUtilsLib
+ * 
+**/ 
+
+namespace rajadordev\skinutils\skin\holder;
+
+use rajadordev\skinutils\skin\Skin;
+
+interface SkinHolder 
+{
+
+    /**
+     * @return string
+     */
+    public function getHolderIdentifier() : string;
+
+    /**
+     * @return Skin
+     */
+    public function getSkin() : Skin;
+
+    /**
+     * @param Skin $skin
+     * @return SkinHolder
+     */
+    public function setSkin(Skin $skin) : SkinHolder;
+
+}

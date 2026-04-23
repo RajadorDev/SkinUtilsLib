@@ -1,0 +1,19 @@
+---
+name: SkinUtilsLib
+description: 'Biblioteca para pocketmine 2.0.0 O objetivo inicial desta biblioteca é a manipulação, salvamento de Skins.'
+author: Rajador
+discord: rajadortv
+api: 2.0.0
+depend:
+  - SmartCommand
+  - AutoPluginUpdater
+version: '1.0.0'
+main: rajadordev\skinutils\SkinUtilsLoader
+permissions:
+  skinutils.command.save:
+    description: 'Permitir jogador de salvar uma skin.'
+    default: op
+  skinutils.command.set:
+    description: 'Permitir jogador setar uma skin.'
+    default: op
+...
