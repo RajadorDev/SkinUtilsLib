@@ -33,14 +33,10 @@ trait SkinHandlerEntityTrait
 
     use SkinHandlerTrait;
 
-    public function getHandlerId() : int {
-        return $this->getHandlerId();
-    }
-
     public function close() 
     {
         $this->forceUnregisterHandler();
         parent::close();
     }
-    
+
 }

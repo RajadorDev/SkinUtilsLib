@@ -39,9 +39,20 @@ class SkinHandlerManager
     /** @var array<string,array<int,SkinHandler>> */
     protected $handlers = [];
 
+    /** @var integer */
+    private static $currentHandlerId = 0;
+
     public static function init()
     {
         new self;
+    }
+
+    /**
+     * @return integer
+     */
+    public static function generateHandlerId() : int 
+    {
+        return self::$currentHandlerId++;
     }
 
     public function __construct()

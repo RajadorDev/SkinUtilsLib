@@ -36,6 +36,15 @@ trait SkinHandlerTrait
     /** @var PlayerSkinHolder|null */
     protected $currentTargetSkin = null;
 
+    /** @var integer */
+    private $handlerId;
+
+    public function getHandlerId() : int
+    {
+        return isset($this->handlerId) 
+        ? $this->handlerId 
+        : ($this->handlerId = SkinHandlerManager::generateHandlerId());
+    }
 
     protected function setTargetSkinUsername(string $username, bool $registerHandler = true) : self
     {
@@ -66,6 +75,7 @@ trait SkinHandlerTrait
     {
         assert($skin instanceof PlayerSkinHolder || is_null($skin));
         $this->currentTargetSkin = $skin;
+        $this->onCurrentTargetSkinChange($skin);
         return $this;
     }
 
@@ -81,13 +91,19 @@ trait SkinHandlerTrait
 
     public function onUnregister() 
     {
-        $this->currentTargetSkin = null;
+        $this->setCurrentTargetSkin(null);
     }
 
     protected function forceUnregisterHandler()
     {
         SkinHandlerManager::getInstance()->unregisterSkinHandler($this);
     }
+
+    /**
+     * @param PlayerSkinHolder|null $skin
+     * @return void
+     */
+    abstract protected function onCurrentTargetSkinChange($skin);
 
 
 }
