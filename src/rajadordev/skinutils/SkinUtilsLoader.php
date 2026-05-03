@@ -31,6 +31,7 @@ use rajadordev\autoupdater\api\plugin\defaults\github\GitHubPluginUpdaterAPI;
 use rajadordev\autoupdater\api\PluginUpdaterChecker;
 use rajadordev\skinutils\command\SaveSkinCommand;
 use rajadordev\skinutils\command\SetSkinCommand;
+use rajadordev\skinutils\skin\handler\SkinHandlerManager;
 use rajadordev\skinutils\skin\save\OfflinePlayersSkinsSave;
 use rajadordev\skinutils\skin\save\OnlinePlayersSkinsSave;
 use SmartCommand\api\SmartCommandAPI;
@@ -55,6 +56,8 @@ class SkinUtilsLoader extends PluginBase
         {
             mkdir($dir);
         }
+
+        SkinHandlerManager::init();
 
         OfflinePlayersSkinsSave::init();
         if (!file_exists($skinsDir = OfflinePlayersSkinsSave::getInstance()->getOfflineSkinsFolder())) {

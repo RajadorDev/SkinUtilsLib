@@ -30,6 +30,7 @@ use rajadordev\skinutils\skin\holder\SkinHolder;
 use rajadordev\skinutils\skin\SkinListTrait;
 use pocketmine\plugin\PluginLogger;
 use rajadordev\skinutils\listener\OnlineSkinSaveListener;
+use rajadordev\skinutils\skin\handler\SkinHandlerManager;
 use rajadordev\skinutils\SkinUtilsLoader;
 use rajadordev\skinutils\skin\holder\PlayerSkinHolder;
 use rajadordev\skinutils\utils\Performance;
@@ -70,6 +71,7 @@ class OnlinePlayersSkinsSave
                     $time = $performance->finish()->getFormattedResult();
                     if ($save) {
                         $this->logger->debug("{$holder->getUsername()}'s skin saved sucefully in $time");
+                        SkinHandlerManager::getInstance()->callHandlers($holder);
                     } else {
                         $this->logger->debug("{$holder->getUsername()}'s is already saved. Check finished in $time");
                     }
