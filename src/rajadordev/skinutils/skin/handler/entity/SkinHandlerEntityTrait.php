@@ -23,7 +23,7 @@ declare (strict_types=1);
  * 
 **/ 
 
-namespace rajaddev\v\skinutils\skin\handler\entity;
+namespace rajadordev\skinutils\skin\handler\entity;
 
 use rajadordev\skinutils\skin\handler\SkinHandlerManager;
 use rajadordev\skinutils\skin\handler\SkinHandlerTrait;
