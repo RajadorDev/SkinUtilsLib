@@ -26,9 +26,9 @@ declare(strict_types=1);
 namespace rajadordev\skinutils\command;
 
 use pocketmine\command\CommandSender;
+use rajadordev\skinutils\command\subcommand\InfoSubCommand;
 use rajadordev\skinutils\command\subcommand\SaveSubCommand;
 use rajadordev\skinutils\SkinUtilsLoader;
-use SmartCommand\api\command\subcommand\InfoSubCommand;
 use SmartCommand\command\CommandArguments;
 use SmartCommand\command\SmartCommand;
 
