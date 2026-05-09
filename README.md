@@ -113,3 +113,37 @@ DefaultMinecraftSkins::STEVE()->applyInHuman($human);
 # Apply default Alex minecraft skin in a Human
 DefaultMinecraftSkins::ALEX()->applyInHuman($human);
 ```
+
+### Skin handler 📡
+You can also create a handler and receive the current and the new skin (if the player change his own skin) using a SkinHandler:
+```php
+<?php
+
+use rajadordev\skinutils\skin\handler\SkinHandler;
+use rajadordev\skinutils\skin\handler\SkinHandlerTrait;
+use rajadordev\skinutils\skin\holder\PlayerSkinHolder;
+
+class MySkinHandler implements SkinHandler
+{
+
+    use SkinHandlerTrait;
+
+    public function __construct(
+        string $playerUsername
+    )
+    {
+        # Use this method to set target player name
+        $this->setTargetSkinUsername($playerUsername);
+    }
+
+    protected function onCurrentTargetSkinChange($skin)
+    {
+        if ($skin instanceof PlayerSkinHolder) {
+            # Do something.....
+            # Here i'm saving the skin as PNG 
+            $skin->getSkin()->toImage('where/path/skin');
+        }
+    }
+
+}
+```
