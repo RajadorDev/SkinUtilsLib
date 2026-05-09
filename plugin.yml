@@ -7,14 +7,13 @@ api: 2.0.0
 depend:
   - SmartCommand
   - AutoPluginUpdater
-version: '1.0.0'
+version: '1.1.0'
 main: rajadordev\skinutils\SkinUtilsLoader
 permissions:
-  # Soon....
+  skinutils.command:
+    description: 'Permitir jogador de usar o comando /skin'
+    default: true
   skinutils.command.save:
     description: 'Permitir jogador de salvar uma skin.'
-    default: op
-  skinutils.command.set:
-    description: 'Permitir jogador setar uma skin.'
     default: op
 ...
