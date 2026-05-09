@@ -1,7 +1,7 @@
 <?php
 
-declare (strict_types=1);
- 
+declare(strict_types=1);
+
 /***
  *   
  * Rajador Developer Diamond API
@@ -21,57 +21,35 @@ declare (strict_types=1);
  * 
  * Repository: https://github.com/RajadorDev/SkinUtilsLib
  * 
-**/
+ **/
 
 namespace rajadordev\skinutils\skin\save;
 
-use InvalidArgumentException;
 use rajadordev\skinutils\skin\Skin;
+use rajadordev\skinutils\SkinUtilsLoader;
 
-abstract class PreLoadedSkinsObject 
+/**
+ * @method static Skin STEVE()
+ * @method static Skin ALEX()
+ */
+final class DefaultMinecraftSkins extends PreLoadedSkinsObject
 {
 
-    /** @var array<string,Skin> */
-    protected static $skins;
-
-    /**
-     * You can register skins here, it will be called once
-     *
-     * @return void
-     */
-    abstract protected static function setup();
-
-    protected static function transformName(string $identifier) : string 
-    {
-        return strtoupper($identifier);
-    }
-
-    protected static function register(string $identifier, Skin $skin)
-    {
-        $identifier = self::transformName($identifier);
-        if (isset(self::$skins[$identifier])) {
-            throw new InvalidArgumentException("Skin $identifier is already registered");
+    protected static function setup() {
+        if (!file_exists($defaultSkinsFolder = SkinUtilsLoader::getInstance()->getDefaultsSkinsFolder())) {
+            mkdir($defaultSkinsFolder);
         }
-        self::$skins[$identifier] = $skin;
+        self::registerFromResources('steve', 'Standard_Steve');
+        self::registerFromResources('alex', 'Standard_Alex');
     }
 
-    public static function __callStatic($name, $arguments)
+    protected static function registerFromResources(string $skinName, string $skinId)
     {
-
-        self::setupIfNotInitialized();
-
-        if (isset(self::$skins[$name])) {
-            return self::$skins[$name];
-        }
-        throw new InvalidArgumentException("Skin $name is not registered");
+        $loader = SkinUtilsLoader::getInstance();
+        $fileName = $skinName . '.png';
+        $loader->saveResource('defaults/' . $fileName);
+        $file = $loader->getDataFolder() . 'defaults' . DIRECTORY_SEPARATOR . $fileName;
+        $skin = Skin::syncFromImageFile($file, $skinId);
+        self::register($skinName, $skin);
     }
-
-    public static function setupIfNotInitialized()
-    {
-        if (!isset(self::$skins)) {
-            self::$skins = [];
-            static::setup();
-        }
-    }
-    
 }
