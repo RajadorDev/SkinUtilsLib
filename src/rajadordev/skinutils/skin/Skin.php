@@ -50,6 +50,8 @@ class Skin extends DynamicObject
 
     const DEFAULT_SKIN_ID = 'Standard_Custom';
 
+    const DEFAULT_SKIN_ID_SLIM = 'Standard_CustomSlim';
+
     /** @var string */
     protected $id, $data;
 
@@ -177,7 +179,7 @@ class Skin extends DynamicObject
     /**
      * @param string $savePath Do not use file extension here!
      * @param class-string<SkinImageType> $imageType
-     * @return Promise
+     * @return Promise<boolean>
      */
     public function toImage(string $savePath, string $imageType = PngSkinImageType::class) : Promise
     {
