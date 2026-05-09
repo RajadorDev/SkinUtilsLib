@@ -29,13 +29,11 @@ use pocketmine\plugin\PluginBase;
 use rajadordev\autoupdater\api\CheckUpdateScheduler;
 use rajadordev\autoupdater\api\plugin\defaults\github\GitHubPluginUpdaterAPI;
 use rajadordev\autoupdater\api\PluginUpdaterChecker;
-use rajadordev\skinutils\command\SaveSkinCommand;
-use rajadordev\skinutils\command\SetSkinCommand;
+use rajadordev\skinutils\command\SkinCommand;
 use rajadordev\skinutils\skin\handler\SkinHandlerManager;
 use rajadordev\skinutils\skin\save\OfflinePlayersSkinsSave;
 use rajadordev\skinutils\skin\save\OnlinePlayersSkinsSave;
 use SmartCommand\api\SmartCommandAPI;
-use SmartCommand\message\DefaultMessages;
 use SmartCommand\utils\SingletonTrait;
 
 class SkinUtilsLoader extends PluginBase
@@ -63,6 +61,10 @@ class SkinUtilsLoader extends PluginBase
         if (!file_exists($skinsDir = OfflinePlayersSkinsSave::getInstance()->getOfflineSkinsFolder())) {
             mkdir($skinsDir);
         }
+
+        if (!file_exists($imageSkinFolder = $this->getSkinsImageFolder())) {
+            mkdir($imageSkinFolder);
+        }
         
         OnlinePlayersSkinsSave::init($this);
 
@@ -77,6 +79,17 @@ class SkinUtilsLoader extends PluginBase
             )
         );
 
+        SmartCommandAPI::register('skinutils', new SkinCommand('skin', 'SkinUtilsLib command', self::PREFIX, ['su']));
+    }
+
+    public function getSkinsImageFolder() : string 
+    {
+        return $this->getDataFolder() . 'img' . DIRECTORY_SEPARATOR;
+    }
+
+    public function getDefaultsSkinsFolder() : string 
+    {
+        return $this->getDataFolder() . 'defaults' . DIRECTORY_SEPARATOR;
     }
 
 }
