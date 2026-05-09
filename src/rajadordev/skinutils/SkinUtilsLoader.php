@@ -31,6 +31,7 @@ use rajadordev\autoupdater\api\plugin\defaults\github\GitHubPluginUpdaterAPI;
 use rajadordev\autoupdater\api\PluginUpdaterChecker;
 use rajadordev\skinutils\command\SkinCommand;
 use rajadordev\skinutils\skin\handler\SkinHandlerManager;
+use rajadordev\skinutils\skin\save\DefaultMinecraftSkins;
 use rajadordev\skinutils\skin\save\OfflinePlayersSkinsSave;
 use rajadordev\skinutils\skin\save\OnlinePlayersSkinsSave;
 use SmartCommand\api\SmartCommandAPI;
@@ -80,6 +81,8 @@ class SkinUtilsLoader extends PluginBase
         );
 
         SmartCommandAPI::register('skinutils', new SkinCommand('skin', 'SkinUtilsLib command', self::PREFIX, ['su']));
+
+        DefaultMinecraftSkins::setupIfNotInitialized();
     }
 
     public function getSkinsImageFolder() : string 
