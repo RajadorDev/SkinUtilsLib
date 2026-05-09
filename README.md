@@ -1,6 +1,14 @@
-# SkinUtilsLib 🧍
+# SkinUtilsLib ✨
 
 This shared library for `PocketMine 2.0.0` saves player's skin **automatically** in **background** and you can get, use and save when you want.
+
+You also can any player skin as **PNG** file.
+
+## Command 🛠️
+
+- `/skin`: 
+  - `info`: Shows info about the library
+  - `save <username: string> <fileType: png>`: Saves player's skin
 
 ## Dependences 🧱
 
@@ -13,16 +21,15 @@ This shared library for `PocketMine 2.0.0` saves player's skin **automatically**
 
 ## Examples 📝
 
-## Get offline player's skin:
+### Get offline player's skin and saving as PNG 🖼️
 
 ```php
 <?php
 
-use rajadordev\skinutils\skin\holder\PlayerSkinHolder;
+use rajadordev\skinutils\skin\img\PngSkinImageType;
 use rajadordev\skinutils\skin\save\OfflinePlayersSkinsSave;
-use rajadordev\skinutils\skin\Skin;
+use rajadordev\skinutils\skin\holder\PlayerSkinHolder;
 
-$username = 'Rajador';
 OfflinePlayersSkinsSave::getInstance()->getSkin($username)
 ->then(
     function ($result) {
@@ -36,9 +43,73 @@ OfflinePlayersSkinsSave::getInstance()->getSkin($username)
              * You can also sets Human's skins using:
              * @see Skin::applyInHuman
              */
+
+            # Saving as PNG (Synchronous)
+            $playerSkin->syncToImage(
+                'path/where/SkinName', // You don not need to use file extension (like .png)
+                new PngSkinImageType
+            );
+
+            /**
+             * You can also save in asynchronous mode (recomended)
+             * This method will return a Promise
+             */
+            $playerSkin->toImage('path/where/SkinName')->then(
+                function (bool $result) {
+                    // Do something....
+                }
+            );
         } else {
             /** Skin not found here... */
         }
     }
 );
+```
+
+### Loading skin from PNG file 📁
+```php
+<?php
+
+use rajadordev\skinutils\skin\img\PngSkinImageType;
+use rajadordev\skinutils\skin\Skin;
+use rajadordev\skinutils\skin\task\LoadSkinFromImageFileAsyncTask;
+
+/**
+ * Asynchronous (recomended)
+ */
+LoadSkinFromImageFileAsyncTask::loadFromImage(
+    'path/where/MySkinInPng.png', # Here you need to add the file extension
+    PngSkinImageType::class
+)->then(
+    function ($result) {
+        /** @var Skin|false $result */
+        if ($result instanceof Skin) {
+            # Do something, like apply in some Human/Player
+        } else {
+            # File don't found
+        }
+    }
+)->catch(
+    function () {
+        # Some error ocurred, maybe the file given is not a PNG
+    }
+);
+
+/** Synchronous, it can use a lot of TPS */
+$skin = Skin::syncFromImageFile('path/where/MySkinInPng.png');
+
+# ... So you can apply in a Human/Player
+```
+
+### Using default skins 📚
+```php
+<?php
+
+use rajadordev\skinutils\skin\save\DefaultMinecraftSkins;
+
+# Apply default Steve minecraft skin in a Human
+DefaultMinecraftSkins::STEVE()->applyInHuman($human);
+
+# Apply default Alex minecraft skin in a Human
+DefaultMinecraftSkins::ALEX()->applyInHuman($human);
 ```
